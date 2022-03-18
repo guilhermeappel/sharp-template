@@ -39,7 +39,7 @@ http://sharp-template-api.herokuapp.com/graphql
 
 ## Deploy Docker
 
-- Run the command `docker-compose up -d --build`inside the "docker" folder. It will compile the application for release wi all the necessary files and run at http://localhost:7701/. (using the settings contained in the appsettings.json file)
+- Run the command `docker-compose up -d --build`inside the "docker" folder. It will compile the application for release with all the necessary files and run at http://localhost:7701/. (using the settings contained in the appsettings.json file)
 
 ## Deploy Test
 
