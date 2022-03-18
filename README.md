@@ -54,7 +54,7 @@ Sample file:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=.\\sqlexpress;Database=sharp-template-db;User Id=sa;Password=!@#123qwe;"
+    "DefaultConnection": "Host=localhost;Port=5432;Pooling=true;Database=SharpTemplate;User Id=postgres;Password=postgres;"
   },
   "AppSettings": {
     "SmtpHost": "smtp.office365.com",
