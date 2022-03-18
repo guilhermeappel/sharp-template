@@ -47,7 +47,7 @@ http://sharp-template-api.herokuapp.com/graphql
 
 ## Environment settings
 
-- To run the project on your machine, using Visual Studio, it is necessary to configure the appsettings.json file, adjusting the connection string with the data of your SQL Server installation.
+- To run the project on your machine, using Visual Studio, it is necessary to configure the appsettings.json file, adjusting the connection string with the data of your PostgreSQL installation.
 
 Sample file:
 
