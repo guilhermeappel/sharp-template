@@ -21,7 +21,7 @@ public class UserAuthenticateViewModelValidator : AbstractValidator<UserAuthenti
         _appSettings = appSettings;
 
         RuleFor(x => x)
-            .MustAsync(BeValidUserAsync).OverridePropertyName("InvalidLogin").WithMessage("Invalid e-mail or password");
+            .MustAsync(BeValidUserAsync).OverridePropertyName("invalidLogin").WithMessage("Invalid e-mail or password");
     }
 
     public async Task<bool> BeValidUserAsync(UserAuthenticateViewModel user, CancellationToken cancellationToken)
