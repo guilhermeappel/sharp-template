@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Appel.SharpTemplate.Infrastructure.Data.Repositories;
@@ -20,7 +21,7 @@ public class RepositoryBase<TEntity> : IAsyncDisposable, IRepositoryBase<TEntity
         DbSet = _context.Set<TEntity>();
     }
 
-    public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null)
+    public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, CancellationToken cancellationToken = default)
     {
         var query = DbSet.AsQueryable();
 
@@ -28,30 +29,30 @@ public class RepositoryBase<TEntity> : IAsyncDisposable, IRepositoryBase<TEntity
             query = query
                 .Where(filter);
 
-        return await query.ToListAsync();
+        return await query.ToListAsync(cancellationToken);
     }
 
-    public async Task<TEntity> GetByIdAsync(int id)
+    public async Task<TEntity> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        return await DbSet.FindAsync(id);
+        return await DbSet.FindAsync(new object[] { id }, cancellationToken: cancellationToken);
     }
 
-    public async Task AddAsync(TEntity entity)
+    public async Task AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         await DbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TEntity entity)
+    public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         DbSet.Update(entity);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteAsync(TEntity entity)
+    public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
         DbSet.Remove(entity);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
     public ValueTask DisposeAsync() => _context.DisposeAsync();

@@ -6,4 +6,4 @@ namespace Appel.SharpTemplate.API.Controllers.API;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class BaseController : Controller { }
+public class BaseController : ControllerBase { }

@@ -83,14 +83,13 @@ public class UserRegisterViewModelValidator : AbstractValidator<UserRegisterView
 
     public async Task<bool> BeUniqueEmailAsync(string email, CancellationToken cancellationToken)
     {
-        var xxx = await _repository.GetAsync(x => x.Email == email);
+        return !(await _repository.GetAsync(filter: x => x.Email == email, cancellationToken: cancellationToken)).Any();
 
-        return !xxx.Any();
     }
 
     public async Task<bool> BeUniqueCpfCnpjAsync(string cpfCnpj, CancellationToken cancellationToken)
     {
-        return !(await _repository.GetAsync(x => x.CpfCnpj == cpfCnpj)).Any();
+        return !(await _repository.GetAsync(filter: x => x.CpfCnpj == cpfCnpj, cancellationToken: cancellationToken)).Any();
     }
 
     public bool BeValidCpf(string cpf)
@@ -114,7 +113,7 @@ public class UserRegisterViewModelValidator : AbstractValidator<UserRegisterView
         cpfTemp = cpf.Substring(0, 9);
 
         // Get first digit
-        int[] multiplier1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        var multiplier1 = new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
         for (var i = 0; i < 9; i++)
         {
@@ -130,7 +129,7 @@ public class UserRegisterViewModelValidator : AbstractValidator<UserRegisterView
         sum = 0;
 
         // Get second digit
-        var multiplier2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+        var multiplier2 = new[] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
         for (var i = 0; i < 10; i++)
         {

@@ -24,7 +24,7 @@ public class UsersController : BaseController
     {
         var token = await _userService.AuthenticateAsync(user);
 
-        return Json(token);
+        return Ok(token);
     }
 
     [HttpPut]
@@ -85,7 +85,7 @@ public class UsersController : BaseController
 
         var user = await _userService.GetByIdAsync(id);
 
-        return Json(user);
+        return Ok(user);
     }
 
     [HttpGet]
@@ -94,6 +94,6 @@ public class UsersController : BaseController
     {
         var users = await _userService.GetAsync();
 
-        return Json(users);
+        return Ok(users);
     }
 }

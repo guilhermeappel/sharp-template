@@ -3,6 +3,7 @@ using Appel.SharpTemplate.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Appel.SharpTemplate.Infrastructure.Data.Repositories;
@@ -16,23 +17,23 @@ public class UserRepository : IUserRepository
         _repository = repository;
     }
 
-    public async Task<IEnumerable<User>> GetAsync(Expression<Func<User, bool>> filter = null)
+    public async Task<IEnumerable<User>> GetAsync(Expression<Func<User, bool>> filter = null, CancellationToken cancellationToken = default)
     {
-        return await _repository.GetAsync(filter);
+        return await _repository.GetAsync(filter, cancellationToken);
     }
 
-    public async Task<User> GetByIdAsync(int id)
+    public async Task<User> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        return await _repository.GetByIdAsync(id);
+        return await _repository.GetByIdAsync(id, cancellationToken);
     }
 
-    public async Task AddAsync(User entity)
+    public async Task AddAsync(User entity, CancellationToken cancellationToken = default)
     {
-        await _repository.AddAsync(entity);
+        await _repository.AddAsync(entity, cancellationToken);
     }
 
-    public async Task UpdateAsync(User entity)
+    public async Task UpdateAsync(User entity, CancellationToken cancellationToken = default)
     {
-        await _repository.UpdateAsync(entity);
+        await _repository.UpdateAsync(entity, cancellationToken);
     }
 }

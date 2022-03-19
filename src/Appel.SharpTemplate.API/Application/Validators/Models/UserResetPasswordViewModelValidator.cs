@@ -41,7 +41,7 @@ public class UserResetPasswordViewModelValidator : AbstractValidator<UserResetPa
             return false;
         }
 
-        var databaseUser = await _repository.GetByIdAsync(user.Id);
+        var databaseUser = await _repository.GetByIdAsync(user.Id, cancellationToken);
 
         if (databaseUser == null)
         {
